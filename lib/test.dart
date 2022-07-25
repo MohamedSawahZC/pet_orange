@@ -12,24 +12,16 @@ var selectedItem;
           height: 1200,
           width: double.maxFinite,
           color: Colors.grey[400],
-          child: Stack(
-            children: [
-              Positioned(
-                right: 10,
-                top: 4,
-                child: Image.asset(
-                  'assets/images/small.png',
-                ),
-              ),
-              Positioned(
-                left: 10,
-                top: 400,
-                child: Image.asset(
-                  'assets/images/small.png',
-                ),
-              ),
-            ],
-          ),
+          child: Listener(
+            child: Container(
+              width: 40,
+              height: 40,
+              color: Colors.red,
+            ),
+            onPointerHover: (e){
+
+            },
+          )
         ),
       ),
     );

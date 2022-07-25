@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                         defaultButton(
                           backgroundColor: Colors.transparent,
                           function: () async {
-                            await controller.scrollToIndex(1,
+                            await controller.scrollToIndex(2,
                                 preferPosition: AutoScrollPosition.begin);
                           },
                           text: 'Category',
