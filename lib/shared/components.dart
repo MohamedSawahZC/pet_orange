@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ms_widgets/ms_widgets.dart';
-
+import 'package:flutter_svg/svg.dart';
 import '../layout/pages_layout.dart';
 import 'colors.dart';
 import 'constants.dart';
@@ -94,6 +94,63 @@ Widget buildBoardingItem(BoardingModel model) {
       ],
     ),
   );
+}
+
+
+class defaultIconButton extends StatelessWidget {
+  final String? iconSvgPath;
+  final String? buttomTitle;
+  final Function? onPressed;
+  final Color? backgroundColor;
+  final TextStyle? textStyle;
+  final double? width;
+  final double? height;
+  final double? elevation;
+  final BorderRadiusGeometry? borderRadius;
+  defaultIconButton({
+    required this.iconSvgPath,
+    required this.buttomTitle,
+    required this.onPressed,
+    required this.backgroundColor,
+    this.borderRadius,
+    this.textStyle,
+    this.width = 100,
+    this.elevation = 1,
+    this.height,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: width,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: borderRadius,
+      ),
+      child: MaterialButton(
+          onPressed: onPressed!(),
+          color: backgroundColor,
+          elevation: elevation,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+
+              Container(
+                  height: 20,
+                  width: 20,
+                  color: kWhite,
+                  child: SvgPicture.asset(iconSvgPath!)),
+              Text(buttomTitle!,
+                style: textStyle,
+              ),
+              // <-- Text
+
+            ],
+          )
+      ),
+    );
+  }
 }
 
 

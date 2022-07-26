@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ms_widgets/ms_widgets.dart';
 import 'package:pet_orange/layout/cubit/cubit.dart';
+import 'package:pet_orange/modules/Login/login_screen.dart';
+import 'package:pet_orange/modules/Request/request_screen.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../../shared/colors.dart';
@@ -101,7 +103,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         defaultButton(
                           backgroundColor: Colors.transparent,
-                          function: () {},
+                          function: () {
+                            navigateTo(context, RequestScreen());
+                          },
                           text: 'Request',
                           textStyle: TextStyle(
                             color: Colors.white,
@@ -127,7 +131,9 @@ class _HomePageState extends State<HomePage> {
                           hoverColor: Colors.white,
                           borderRadius: BorderRadius.circular(20),
                           backgroundColor: Colors.transparent,
-                          function: () {},
+                          function: () {
+                            navigateTo(context, LoginScreen());
+                          },
                           text: 'Login',
                           textStyle: TextStyle(color: kOffWhite),
                           borderColor: kOffWhite,
