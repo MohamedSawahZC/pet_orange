@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:html';
 
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ms_widgets/ms_widgets.dart';
@@ -24,7 +25,7 @@ class _RequestScreenState extends State<RequestScreen> {
 
   String? imageBase64;
 
-  int? categoryId ;
+  int? categoryId;
 
   var logoBase64;
 
@@ -38,7 +39,6 @@ class _RequestScreenState extends State<RequestScreen> {
           logoBase64 = pickedFile!.files.first.bytes;
           imageBase64 = base64Encode(logoBase64);
         });
-        print(imageBase64);
       } catch (err) {
         print(err);
       }
@@ -47,7 +47,12 @@ class _RequestScreenState extends State<RequestScreen> {
     }
   }
 
-  List<String> items = [ 'Dog'];
+  List<String> items = ['Dog'];
+  var nameController,
+      locationController,
+      phoneNumberController,
+      descController = TextEditingController();
+  var category, year, months, size, Breed, hairLength, care, trained, color;
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +164,8 @@ class _RequestScreenState extends State<RequestScreen> {
                           width: double.maxFinite,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.black),
-                            borderRadius: const BorderRadius.all(Radius.circular(30)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(30)),
                           ),
                           child: Center(
                             child: Column(
@@ -178,27 +184,40 @@ class _RequestScreenState extends State<RequestScreen> {
                                 ),
 
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
-
-                                    ElevatedButton.icon(
-
-                                      style: ElevatedButton.styleFrom(
-                                        primary: Colors.white,),
-                                      onPressed: ( ) async {
-                                        chooseImage();
-                                      },
-                                      label: const Text('Choose Image', style: TextStyle(color: Color(0xff4b2f24)), ),
-                                      icon: const Icon(Icons.image,color: Color(0xff4b2f24),size: 80),
-                                    ),
                                     ElevatedButton.icon(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Colors.white,),
+                                        primary: Colors.white,
+                                      ),
                                       onPressed: () async {
                                         chooseImage();
                                       },
-                                      label: const Text('Take Photo', style:TextStyle(color: Color(0xff4b2f24)),),
-                                      icon: const Icon(Icons.camera_alt_outlined, color: Color(0xff4b2f24), size: 80),
+                                      label: const Text(
+                                        'Choose Image',
+                                        style:
+                                            TextStyle(color: Color(0xff4b2f24)),
+                                      ),
+                                      icon: const Icon(Icons.image,
+                                          color: Color(0xff4b2f24), size: 80),
+                                    ),
+                                    ElevatedButton.icon(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.white,
+                                      ),
+                                      onPressed: () async {
+                                        chooseImage();
+                                      },
+                                      label: const Text(
+                                        'Take Photo',
+                                        style:
+                                            TextStyle(color: Color(0xff4b2f24)),
+                                      ),
+                                      icon: const Icon(
+                                          Icons.camera_alt_outlined,
+                                          color: Color(0xff4b2f24),
+                                          size: 80),
                                     ),
                                   ],
                                 ),
@@ -207,6 +226,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                   height: 20,
                                 ),
                                 defaultTextFormField(
+                                  textFieldController: nameController,
                                   width: 600,
                                   borderRadius: BorderRadius.circular(30),
                                   filledColor: Colors.white,
@@ -221,7 +241,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                   width: 600,
                                   child: defaultDropDownMenu(
                                     items: items,
-                                    selectedItem: selectedItem,
+                                    selectedItem: category,
                                     borderRadius: BorderRadius.circular(30),
                                     backgroundColor: Colors.white,
                                     dropDownColor: Colors.white,
@@ -229,11 +249,11 @@ class _RequestScreenState extends State<RequestScreen> {
                                     labelText: "Category",
                                     alignment: Alignment.center,
                                     itemTextStyle: const TextStyle(
-                                      color:  Colors.black,
+                                      color: Colors.black,
                                     ),
                                     contentPadding: EdgeInsets.all(10),
                                     onChanged: (item) {
-                                      selectedItem = item;
+                                      category = item;
                                     },
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
@@ -251,7 +271,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                       width: 230,
                                       child: defaultDropDownMenu(
                                         items: cubit.petsFilterModel!.ages,
-                                        selectedItem: selectedItem,
+                                        selectedItem: year,
                                         borderRadius: BorderRadius.circular(20),
                                         backgroundColor: Colors.white,
                                         dropDownColor: Colors.white,
@@ -263,7 +283,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                         ),
                                         contentPadding: EdgeInsets.all(10),
                                         onChanged: (item) {
-                                          selectedItem = item;
+                                          year = item;
                                         },
                                         icon: const Icon(
                                           Icons.arrow_drop_down,
@@ -274,11 +294,11 @@ class _RequestScreenState extends State<RequestScreen> {
                                     const SizedBox(
                                       width: 140,
                                     ),
-                                    Container (
+                                    Container(
                                       width: 230,
                                       child: defaultDropDownMenu(
                                         items: cubit.petsFilterModel!.ages,
-                                        selectedItem: selectedItem,
+                                        selectedItem: year,
                                         borderRadius: BorderRadius.circular(20),
                                         backgroundColor: Colors.white,
                                         labelText: "Months",
@@ -288,9 +308,10 @@ class _RequestScreenState extends State<RequestScreen> {
                                         itemTextStyle: const TextStyle(
                                           color: Colors.black,
                                         ),
-                                        contentPadding: const EdgeInsets.all(10),
+                                        contentPadding:
+                                            const EdgeInsets.all(10),
                                         onChanged: (item) {
-                                          selectedItem = item;
+                                          year = item;
                                         },
                                         icon: Icon(
                                           Icons.arrow_drop_down,
@@ -310,7 +331,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                       width: 230,
                                       child: defaultDropDownMenu(
                                         items: cubit.petsFilterModel!.size,
-                                        selectedItem: selectedItem,
+                                        selectedItem: size,
                                         borderRadius: BorderRadius.circular(20),
                                         backgroundColor: Colors.white,
                                         dropDownColor: Colors.white,
@@ -322,7 +343,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                         ),
                                         contentPadding: EdgeInsets.all(10),
                                         onChanged: (item) {
-                                          selectedItem = item;
+                                          size = item;
                                         },
                                         icon: Icon(
                                           Icons.arrow_drop_down,
@@ -337,7 +358,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                       width: 230,
                                       child: defaultDropDownMenu(
                                         items: cubit.petsFilterModel!.breed,
-                                        selectedItem: selectedItem,
+                                        selectedItem: Breed,
                                         borderRadius: BorderRadius.circular(20),
                                         backgroundColor: Colors.white,
                                         dropDownColor: Colors.white,
@@ -349,7 +370,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                         ),
                                         contentPadding: EdgeInsets.all(10),
                                         onChanged: (item) {
-                                          selectedItem = item;
+                                          Breed = item;
                                         },
                                         icon: Icon(
                                           Icons.arrow_drop_down,
@@ -408,7 +429,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                         ),
                                         contentPadding: EdgeInsets.all(10),
                                         onChanged: (item) {
-                                          selectedItem = item;
+                                          Breed = item;
                                         },
                                         icon: Icon(
                                           Icons.arrow_drop_down,
@@ -427,8 +448,9 @@ class _RequestScreenState extends State<RequestScreen> {
                                     Container(
                                       width: 230,
                                       child: defaultDropDownMenu(
-                                        items: cubit.petsFilterModel!.hairLength,
-                                        selectedItem: selectedItem,
+                                        items:
+                                            cubit.petsFilterModel!.hairLength,
+                                        selectedItem: hairLength,
                                         borderRadius: BorderRadius.circular(30),
                                         backgroundColor: Colors.white,
                                         dropDownColor: Colors.white,
@@ -440,7 +462,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                         ),
                                         contentPadding: EdgeInsets.all(10),
                                         onChanged: (item) {
-                                          selectedItem = item;
+                                          hairLength = item;
                                         },
                                         icon: Icon(
                                           Icons.arrow_drop_down,
@@ -455,7 +477,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                       width: 230,
                                       child: defaultDropDownMenu(
                                         items: cubit.petsFilterModel!.behaviour,
-                                        selectedItem: selectedItem,
+                                        selectedItem: care,
                                         borderRadius: BorderRadius.circular(20),
                                         backgroundColor: Colors.white,
                                         labelText: "Care & behavior",
@@ -467,7 +489,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                         ),
                                         contentPadding: EdgeInsets.all(10),
                                         onChanged: (item) {
-                                          selectedItem = item;
+                                          care = item;
                                         },
                                         icon: Icon(
                                           Icons.arrow_drop_down,
@@ -487,7 +509,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                       width: 230,
                                       child: defaultDropDownMenu(
                                         items: cubit.petsFilterModel!.goodWith,
-                                        selectedItem: selectedItem,
+                                        selectedItem: trained,
                                         borderRadius: BorderRadius.circular(20),
                                         labelText: "House Trained",
                                         backgroundColor: Colors.white,
@@ -499,7 +521,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                         ),
                                         contentPadding: EdgeInsets.all(10),
                                         onChanged: (item) {
-                                          selectedItem = item;
+                                          trained = item;
                                         },
                                         icon: Icon(
                                           Icons.arrow_drop_down,
@@ -514,7 +536,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                       width: 230,
                                       child: defaultDropDownMenu(
                                         items: cubit.petsFilterModel!.colors,
-                                        selectedItem: selectedItem,
+                                        selectedItem: color,
                                         borderRadius: BorderRadius.circular(30),
                                         backgroundColor: Colors.white,
                                         dropDownColor: Colors.white,
@@ -526,7 +548,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                         ),
                                         contentPadding: EdgeInsets.all(10),
                                         onChanged: (item) {
-                                          selectedItem = item;
+                                          color = item;
                                         },
                                         icon: Icon(
                                           Icons.arrow_drop_down,
@@ -552,6 +574,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20)),
                                   child: defaultTextFormField(
+                                    textFieldController: locationController,
                                     width: 600,
                                     borderRadius: BorderRadius.circular(20),
                                     filledColor: Colors.white,
@@ -573,6 +596,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20)),
                                   child: defaultTextFormField(
+                                    textFieldController: phoneNumberController,
                                     width: 600,
                                     borderRadius: BorderRadius.circular(20),
                                     filledColor: Colors.white,
@@ -588,6 +612,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20)),
                                   child: defaultTextFormField(
+                                    textFieldController: descController,
                                     width: 600,
                                     borderRadius: BorderRadius.circular(20),
                                     filledColor: Colors.white,
@@ -606,30 +631,48 @@ class _RequestScreenState extends State<RequestScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 30),
                                   child: Container(
-                                    child: defaultButton(
-                                      hoverColor: Color(0xFFFFFFFF),
-                                      buttonWidth: 400,
-                                      buttonHeight: 40,
-                                      backgroundColor: Colors.white,
-                                      borderColor: Color(0xffC9C9C9),
-                                      decoration: BoxDecoration(
+                                    child: ConditionalBuilder(
+                                      condition: state is !Request2LoadingState,
+                                      builder: (context)=>defaultButton(
+                                        hoverColor: Color(0xFFFFFFFF),
+                                        buttonWidth: 400,
+                                        buttonHeight: 40,
+                                        backgroundColor: Colors.white,
+                                        borderColor: Color(0xffC9C9C9),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          gradient: LinearGradient(
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                              colors: <Color>[kBlack, kBrown]),
+                                        ),
+                                        function: () {
+                                          cubit.sendRequest(
+                                              name: nameController.text,
+                                              image: imageBase64,
+                                              year: year,
+                                              month: months,
+                                              size: size,
+                                              breed: Breed,
+                                              gender: year,
+                                              hairLength: hairLength,
+                                              color: color,
+                                              careBehavior: care,
+                                              houseTrained: trained,
+                                              description: descController.text,
+                                              location: locationController.text,
+                                              phone: phoneNumberController.text,
+                                              vaccinated: care,
+                                              categoryId: '2');
+                                        },
+                                        text: 'Send',
+                                        textStyle: TextStyle(
+                                            color: kOffWhite, fontSize: 20),
                                         borderRadius: BorderRadius.circular(15),
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: <Color>[kBlack, kBrown]),
+                                        isUpperCase: false,
                                       ),
-                                      function: () {
-                                        print(categoryId!);
-                                        print(imageBase64!);
-
-                                      },
-                                      text: 'Send',
-                                      textStyle: TextStyle(
-                                          color: kOffWhite, fontSize: 20),
-                                      borderRadius: BorderRadius.circular(15),
-                                      isUpperCase: false,
-                                    ),
+                                      fallback: (context)=>Center(child: CircularProgressIndicator(),),
+                                    )
                                   ),
                                 ),
                                 const SizedBox(

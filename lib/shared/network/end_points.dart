@@ -1,4 +1,5 @@
 const LOGIN = 'auth/login';
 const SIGNUP = 'auth/register';
 const HELP = 'pets/request' ;
-const PETS = 'pets/filters/' ;
+const PETSFILTER = 'pets/filters/' ;
+const PETS = 'pets/' ;
