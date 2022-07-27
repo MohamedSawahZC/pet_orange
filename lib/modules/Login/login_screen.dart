@@ -1,4 +1,5 @@
 
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +24,10 @@ class LoginScreen extends StatelessWidget {
 
       },
       builder: (context,state){
-        RequestCubit cubit = RequestCubit.get(context);
+        LoginCubit cubit = LoginCubit.get(context);
+        var emailController = TextEditingController();
+        var passwordController = TextEditingController();
+        var formKey = GlobalKey<FormState>();
         return SafeArea(
           child: SingleChildScrollView(
             child: Material(
@@ -131,158 +135,187 @@ class LoginScreen extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Log in',
-                              style: TextStyle(color: kBrown, fontSize: 45),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Card(
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: defaultTextFormField(
-                                width: 400,
-                                borderRadius: BorderRadius.circular(20),
-                                filledColor: Colors.white,
-                                hintText: 'Email',
-                                prefixWidget: Icon(
-                                  Icons.email,
-                                ),
-                                borderColor: Colors.transparent,
+                        child: Form(
+                          key: formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Log in',
+                                style: TextStyle(color: kBrown, fontSize: 45),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            Card(
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: defaultTextFormField(
-                                width: 400,
-                                borderRadius: BorderRadius.circular(20),
-                                filledColor: Colors.white,
-                                hintText: 'Password',
-                                isSecure: true,
-                                prefixWidget: Icon(Icons.lock),
-                                suffixWidget: Icon(
-                                    Icons.remove_red_eye
-                                ),
-                                borderColor: Colors.transparent,
+                              const SizedBox(
+                                height: 15,
                               ),
-                            ),
-
-                            const SizedBox(
-                              height: 20,
-                            ),
-
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Container(
-                                child: defaultButton(
-                                  hoverColor:kBrown,
-                                  buttonWidth: 400,
-                                  buttonHeight: 50,
-                                  backgroundColor: kBrown,
+                              Card(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: defaultTextFormField(
+                                  width: 400,
+                                  borderRadius: BorderRadius.circular(20),
+                                  filledColor: Colors.white,
+                                  hintText: 'Email',
+                                  validateTextField: (String? text){
+                                    if(text!.isEmpty){
+                                      return 'Please enter email';
+                                    }
+                                  },
+                                  textFieldController: emailController,
+                                  prefixWidget: Icon(
+                                    Icons.email,
+                                  ),
                                   borderColor: Colors.transparent,
-                                  decoration: BoxDecoration(
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              Card(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: defaultTextFormField(
+                                  width: 400,
+                                  borderRadius: BorderRadius.circular(20),
+                                  filledColor: Colors.white,
+                                  hintText: 'Password',
+                                  textFieldController: passwordController,
+                                  isSecure: cubit.isPassword,
+                                  prefixWidget: Icon(Icons.lock),
+                                  validateTextField: (String? text){
+                                    if(text!.isEmpty){
+                                      return 'Please enter Password';
+                                    }
+                                  },
+                                  suffixWidget: IconButton(
+                                     icon: Icon(
+                                         cubit.suffix,
+                                     ),
+                                    onPressed: (){
+                                      cubit.changePasswordVisibility();
+                                    },
+                                  ),
+
+                                  borderColor: Colors.transparent,
+                                ),
+                              ),
+
+                              const SizedBox(
+                                height: 20,
+                              ),
+
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: ConditionalBuilder(
+                                  condition: true,
+                                  builder:(context)=> defaultButton(
+                                    hoverColor:kBrown,
+                                    buttonWidth: 400,
+                                    buttonHeight: 50,
+                                    backgroundColor: kBrown,
+                                    borderColor: Colors.transparent,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: <Color>[kBrown, kBrown]),
+                                    ),
+                                    function: () {
+                                    if(formKey.currentState!.validate()){
+                                      cubit.UserLogin(
+                                        email: emailController.text,
+                                        password: passwordController.text
+                                      );
+                                    }
+                                    },
+                                    text: 'Login',
+                                    textStyle: TextStyle(color: kOffWhite, fontSize: 20),
                                     borderRadius: BorderRadius.circular(15),
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: <Color>[kBrown, kBrown]),
+                                    isUpperCase: false,
                                   ),
-                                  function: () {},
-                                  text: 'Login',
-                                  textStyle: TextStyle(color: kOffWhite, fontSize: 20),
-                                  borderRadius: BorderRadius.circular(15),
-                                  isUpperCase: false,
+                                  fallback: (context)=> Center(child: CircularProgressIndicator(),),
+                                )
+                              ),
+                              const SizedBox(
+                                height: 17,
+                              ),
+                              const Text(
+                                "_________________________    Or     __________________________",
+                                style: TextStyle(fontWeight: FontWeight.bold, color: kBrown),
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              Container(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    defaultIconButton(
+                                      buttomTitle: 'Facebook',
+                                      iconSvgPath: facebook,
+                                      onPressed: (){
 
+                                      },
+                                      borderRadius: BorderRadius.circular(20),
+                                      backgroundColor: kBlueFb,
+                                      height: 50,
+                                      width: 190,
+                                      textStyle: TextStyle(
+                                          color: Colors.white
+                                      ),
+                                    ),
+                                    // TODO def
+
+                                    SizedBox(
+                                      width: 30,
+                                    ),
+                                    defaultIconButton(
+                                      buttomTitle: 'Google',
+                                      iconSvgPath: icongoogle,
+                                      onPressed: (){
+
+                                      },
+                                      borderRadius: BorderRadius.circular(20),
+                                      backgroundColor: Colors.white,
+                                      height: 50,
+                                      width: 190,
+                                      textStyle: TextStyle(
+                                          color: Colors.black
+                                      ),
+                                    )
+
+                                  ],
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 17,
-                            ),
-                            const Text(
-                              "_________________________    Or     __________________________",
-                              style: TextStyle(fontWeight: FontWeight.bold, color: kBrown),
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  defaultIconButton(
-                                    buttomTitle: 'Facebook',
-                                    iconSvgPath: facebook,
-                                    onPressed: (){
-
-                                    },
-                                    borderRadius: BorderRadius.circular(20),
-                                    backgroundColor: kBlueFb,
-                                    height: 50,
-                                    width: 190,
-                                    textStyle: TextStyle(
-                                        color: Colors.white
-                                    ),
-                                  ),
-                                  // TODO def
-
-                                  SizedBox(
-                                    width: 30,
-                                  ),
-                                  defaultIconButton(
-                                    buttomTitle: 'Google',
-                                    iconSvgPath: icongoogle,
-                                    onPressed: (){
-
-                                    },
-                                    borderRadius: BorderRadius.circular(20),
-                                    backgroundColor: Colors.white,
-                                    height: 50,
-                                    width: 190,
-                                    textStyle: TextStyle(
-                                        color: Colors.black
-                                    ),
-                                  )
-
-                                ],
+                              const SizedBox(
+                                height: 15,
                               ),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            RichText(
-                              text: TextSpan(children: [
-                                TextSpan(
-                                  text: "Already have an account?",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                TextSpan(
-                                    text: ' Sign up',
+                              RichText(
+                                text: TextSpan(children: [
+                                  TextSpan(
+                                    text: "Already have an account?",
                                     style: TextStyle(
-                                      color: kBrown,
+                                      color: Colors.black,
                                     ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
+                                  ),
+                                  TextSpan(
+                                      text: ' Sign up',
+                                      style: TextStyle(
+                                        color: kBrown,
+                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
 
-                                      }),
-                              ]),
-                            ),
-                            SizedBox(
-                              height: 25,
-                            ),
-                          ],
+                                        }),
+                                ]),
+                              ),
+                              SizedBox(
+                                height: 25,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
