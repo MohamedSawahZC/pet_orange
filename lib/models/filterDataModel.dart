@@ -1,63 +1,67 @@
-class FilterModel{
-    List<Breed>? breeds =[];
-    List<ages>? Ages =[];
-    List<size>? Size =[];
-    List<goodWith>? GoodWith =[];
-    List<gender>? Gender =[];
-    List<colors>? Colors =[];
-    List<hairLength>? HairLength =[];
-    List<behaviour>? Behaviour =[];
-    FilterModel.fromJson(Map<String,dynamic>json){
-      json['breed'].forEach((element){
-        breeds!.add(Breed.fromJson(element));
-      });
+class PetsFilterModel {
+  List<String>? breed;
+  List<String>? ages;
+  List<String>? size;
+  List<String>? goodWith;
+  Gender? gender;
+  List<String>? colors;
+  List<String>? hairLength;
+  List<String>? behaviour;
+
+  PetsFilterModel(
+      {
+        this.breed,
+        this.ages,
+        this.size,
+        this.goodWith,
+        this.gender,
+        this.colors,
+        this.hairLength,
+        this.behaviour});
+
+  PetsFilterModel.fromJson(Map<String, dynamic> json) {
+    breed = json['breed'].cast<String>();
+    ages = json['ages'].cast<String>();
+    size = json['size'].cast<String>();
+    goodWith = json['goodWith'].cast<String>();
+    gender =
+    json['gender'] != null ? Gender.fromJson(json['gender']) : null;
+    colors = json['colors'].cast<String>();
+    hairLength = json['hairLength'].cast<String>();
+    behaviour = json['behaviour'].cast<String>();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['breed'] = breed;
+    data['ages'] = ages;
+    data['size'] = size;
+    data['goodWith'] = goodWith;
+    if (gender != null) {
+      data['gender'] = gender!.toJson();
     }
+    data['colors'] = colors;
+    data['hairLength'] = hairLength;
+    data['behaviour'] = behaviour;
+    return data;
+  }
 }
 
-class Breed{
-  String? data;
-  Breed.fromJson(Map<String,dynamic>json){
-    data=json['breed'];
+class Gender {
+  int? male;
+  int? female;
+
+  Gender({this.male, this.female});
+
+  Gender.fromJson(Map<String, dynamic> json) {
+    male = json['male'];
+    female = json['female'];
   }
-}class ages{
-  String? data;
-  ages.fromJson(Map<String,dynamic>json){
-    data=json['ages'];
-  }
-}
-class size{
-  String? data;
-  size.fromJson(Map<String,dynamic>json){
-    data=json['size'];
-  }
-}
-class goodWith{
-  String? data;
-  goodWith.fromJson(Map<String,dynamic>json){
-    data=json['goodWith'];
-  }
-}
-class gender{
-  int? data;
-  gender.fromJson(Map<String,dynamic>json){
-    data=json['gender'];
-  }
-}
-class colors{
-  int? data;
-  colors.fromJson(Map<String,dynamic>json){
-    data=json['colors'];
-  }
-}
-class hairLength{
-  int? data;
-  hairLength.fromJson(Map<String,dynamic>json){
-    data=json['hairLength'];
-  }
-}
-class behaviour{
-  int? data;
-  behaviour.fromJson(Map<String,dynamic>json){
-    data=json['behaviour'];
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['male'] = male;
+    data['female'] = female;
+    return data;
   }
 }

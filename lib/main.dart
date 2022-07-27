@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           create:(context)=>PagesLayout(),
         ),
         BlocProvider(
-          create:(context)=>RequestCubit(),
+          create:(context)=>RequestCubit()..getData('1'),lazy: false,
         ),
         BlocProvider(
           create:(context)=>LoginCubit(),

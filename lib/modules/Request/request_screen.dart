@@ -47,7 +47,7 @@ class _RequestScreenState extends State<RequestScreen> {
     }
   }
 
-  List<String> items = ['Item 1', 'Item 2', 'Item 3'];
+  List<String> items = [ 'Dog'];
 
   @override
   Widget build(BuildContext context) {
@@ -250,7 +250,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                     Container(
                                       width: 230,
                                       child: defaultDropDownMenu(
-                                        items: items,
+                                        items: cubit.petsFilterModel!.ages,
                                         selectedItem: selectedItem,
                                         borderRadius: BorderRadius.circular(20),
                                         backgroundColor: Colors.white,
@@ -277,7 +277,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                     Container (
                                       width: 230,
                                       child: defaultDropDownMenu(
-                                        items: items,
+                                        items: cubit.petsFilterModel!.ages,
                                         selectedItem: selectedItem,
                                         borderRadius: BorderRadius.circular(20),
                                         backgroundColor: Colors.white,
@@ -309,7 +309,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                     Container(
                                       width: 230,
                                       child: defaultDropDownMenu(
-                                        items: items,
+                                        items: cubit.petsFilterModel!.size,
                                         selectedItem: selectedItem,
                                         borderRadius: BorderRadius.circular(20),
                                         backgroundColor: Colors.white,
@@ -336,7 +336,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                     Container(
                                       width: 230,
                                       child: defaultDropDownMenu(
-                                        items: items,
+                                        items: cubit.petsFilterModel!.breed,
                                         selectedItem: selectedItem,
                                         borderRadius: BorderRadius.circular(20),
                                         backgroundColor: Colors.white,
@@ -395,7 +395,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                     Container(
                                       width: 230,
                                       child: defaultDropDownMenu(
-                                        items: items,
+                                        items: cubit.petsFilterModel!.breed,
                                         selectedItem: selectedItem,
                                         borderRadius: BorderRadius.circular(20),
                                         backgroundColor: Colors.white,
@@ -427,7 +427,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                     Container(
                                       width: 230,
                                       child: defaultDropDownMenu(
-                                        items: items,
+                                        items: cubit.petsFilterModel!.hairLength,
                                         selectedItem: selectedItem,
                                         borderRadius: BorderRadius.circular(30),
                                         backgroundColor: Colors.white,
@@ -454,7 +454,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                     Container(
                                       width: 230,
                                       child: defaultDropDownMenu(
-                                        items: items,
+                                        items: cubit.petsFilterModel!.behaviour,
                                         selectedItem: selectedItem,
                                         borderRadius: BorderRadius.circular(20),
                                         backgroundColor: Colors.white,
@@ -486,7 +486,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                     Container(
                                       width: 230,
                                       child: defaultDropDownMenu(
-                                        items: items,
+                                        items: cubit.petsFilterModel!.goodWith,
                                         selectedItem: selectedItem,
                                         borderRadius: BorderRadius.circular(20),
                                         labelText: "House Trained",
@@ -513,7 +513,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                     Container(
                                       width: 230,
                                       child: defaultDropDownMenu(
-                                        items: items,
+                                        items: cubit.petsFilterModel!.colors,
                                         selectedItem: selectedItem,
                                         borderRadius: BorderRadius.circular(30),
                                         backgroundColor: Colors.white,
