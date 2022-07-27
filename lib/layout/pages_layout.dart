@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ms_widgets/ms_widgets.dart';
 import 'package:pet_orange/layout/cubit/cubit.dart';
+import 'package:pet_orange/modules/Help_screen/help_your_friend.dart';
 import 'package:pet_orange/modules/Login/login_screen.dart';
 import 'package:pet_orange/modules/Request/request_screen.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../../shared/colors.dart';
+import '../modules/Sing_Up/Sing _Up.dart';
 import '../shared/components.dart';
 import '../shared/constants.dart';
 import 'cubit/states.dart';
@@ -118,7 +120,9 @@ class _HomePageState extends State<HomePage> {
                         defaultButton(
                           hoverColor: Colors.white,
                           backgroundColor: Colors.transparent,
-                          function: () {},
+                          function: () {
+                            navigateTo(context, SingUp());
+                          },
                           borderRadius: BorderRadius.circular(20),
                           text: 'Sign up',
                           textStyle: TextStyle(color: kOffWhite),
@@ -221,7 +225,9 @@ class FirstWidget extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  function: () {},
+                  function: () {
+                    navigateTo(context, HelpScreen());
+                  },
                   text: 'Help them',
                   textStyle: TextStyle(color: Colors.black, fontSize: 20),
                   isUpperCase: false,
