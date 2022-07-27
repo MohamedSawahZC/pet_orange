@@ -11,6 +11,7 @@ import 'package:pet_orange/test.dart';
 
 import 'layout/pages_layout.dart';
 import 'modules/Sing_Up/cubit/cubit.dart';
+import 'modules/adaption_screen/cubit/adaption_cubit.dart';
 
 void main() async{
   DioHelper.init();
@@ -40,13 +41,16 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create:(context)=>SingUpCubit(),
         ),
+        BlocProvider(
+          create:(context)=>AdaptionCubit()..getFilterData('2')..getPetsList('2'),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             fontFamily: 'Jannah',
         ),
-        home: RequestScreen(),
+        home: HomePage(),
       ),
     );
   }

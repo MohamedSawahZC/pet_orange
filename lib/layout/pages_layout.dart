@@ -9,6 +9,7 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../../shared/colors.dart';
 import '../modules/Sing_Up/Sing _Up.dart';
+import '../modules/adaption_screen/adaption_screen.dart';
 import '../shared/components.dart';
 import '../shared/constants.dart';
 import 'cubit/states.dart';
@@ -439,7 +440,7 @@ class FriendsSection extends StatelessWidget {
       index: 3,
       child: Container(
         color: Colors.white,
-        height: 800,
+        height: 1100,
         width: double.maxFinite,
         child: Stack(
           children: [
@@ -532,6 +533,31 @@ class FriendsSection extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Positioned(
+                      bottom: 10,
+                      child: defaultButton(
+                        borderRadius: BorderRadius.circular(20),
+                        backgroundColor: kBrown,
+                        decoration: BoxDecoration(
+                          color: kBrown,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        function: (){
+                                navigateTo(context, AdaptionScreen());
+                        },
+                        text: 'Read more',
+                        borderColor: kBrown,
+                        textStyle: TextStyle(
+                          fontSize: 30,
+                          color: kWhite,
+                        ),
+
+
+                      ),
+                    )
                   ],
                 ),
               ),
