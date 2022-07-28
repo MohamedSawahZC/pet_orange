@@ -21,11 +21,7 @@ class AdaptionScreen extends StatelessWidget {
     return BlocConsumer<AdaptionCubit, AdaptionState>(
         builder: (context, state) {
           var cubit = AdaptionCubit.get(context);
-          // List<String> gender =
-          // [
-          //   '${cubit.petsModel!.gender!.male}',
-          //   '${cubit.petsModel!.gender!.female}'
-          // ];
+
           return Scaffold(
             body: SingleChildScrollView(
               child: Column(

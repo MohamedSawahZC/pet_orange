@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ms_widgets/ms_widgets.dart';
 import 'package:pet_orange/layout/cubit/cubit.dart';
 import 'package:pet_orange/modules/Request/cubit/cubit.dart';
+import 'package:pet_orange/modules/Sing_Up/Sing%20_Up.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../../shared/colors.dart';
@@ -292,24 +293,27 @@ class LoginScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 15,
                               ),
-                              RichText(
-                                text: TextSpan(children: [
-                                  TextSpan(
-                                    text: "Already have an account?",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                      text: ' Sign up',
+                              GestureDetector(
+                                onTap: ()=>navigateTo(context, SingUp()),
+                                child: RichText(
+                                  text: TextSpan(children: [
+                                    TextSpan(
+                                      text: "Already have an account?",
                                       style: TextStyle(
-                                        color: kBrown,
+                                        color: Colors.black,
                                       ),
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
+                                    ),
+                                    TextSpan(
+                                        text: ' Sign up',
+                                        style: TextStyle(
+                                          color: kBrown,
+                                        ),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
 
-                                        }),
-                                ]),
+                                          }),
+                                  ]),
+                                ),
                               ),
                               SizedBox(
                                 height: 25,

@@ -395,9 +395,7 @@ class SingUp extends StatelessWidget {
                                             ),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) => LoginScreen()));
+                                                navigateTo(context, SingUp());
 
 
                                               }),
